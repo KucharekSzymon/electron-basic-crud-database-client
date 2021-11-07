@@ -2,20 +2,33 @@ const {app, BrowserWindow} = require('electron')
 const path = require("path")
 function createWindow(){
     const window = new BrowserWindow({
-        width: 500, height: 500,
+        width: 800, height: 800,
         webPreferences:{
             nodeIntegration: true, 
             contextIsolation: false,
         }
     })
     window.openDevTools();
-    window.loadFile('index.html')
+    window.loadFile('Select.html')
+}
+function sndWindow(){
+    const window = new BrowserWindow({
+        width: 800, height: 800,
+        webPreferences:{
+            nodeIntegration: true, 
+            contextIsolation: false,
+        }
+    })
+    window.openDevTools();
+    window.loadFile('Insert.html')
 }
 app.whenReady().then(() =>{
     createWindow()
+    sndWindow()
     app.on('activate',() =>{
         if(BrowserWindow.getAllWindows().length===0){
             createWindow()
+            sndWindow()
         }
     })
 })

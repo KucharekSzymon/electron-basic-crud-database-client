@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert</title>
+
+</head>
+
+<body>
+    <div class="app-wrapper">
+        <select id='table' onchange="hideInputs()">
+            <option selected value="Products">
+                Products
+            </option>
+            <option value="Sellers">
+                Sellers
+            </option>
+        </select>
+        <div id='divProducts'>
+            Product_ID - <input type="number" id='Product_ID' /><br>
+            Product_Name - <input type="text" id='Product_Name' /><br>
+            Product_Price - <input type="number" id='Product_Price' /><br>
+            Product_Description - <input type="text" id='Product_Description' /><br>
+            Product_Rating - <input type="number" id='Product_Rating' /><br>
+            Category_ID - <input type="" id='Category_ID' /><br>
+        </div>
+        <div style="display: none;" id='divSellers'>
+            Seller_ID - <input type="number" id='Seller_ID' /><br>
+            Product_ID - <input type="number" id='Product_ID2' /><br>
+            Seller_Name - <input type="text" id='Seller_Name' /><br>
+            Seller_Rating - <input type="number" id='Seller_Rating' /><br>
+        </div>
+
+        <button onclick="insert()">Insert to table</button>
+    </div>
+    <script>
+        const { Client } = require('pg');
+        const client = new Client({
+            host: "192.168.0.73",
+            port: 5432,
+            database: "baza",
+            user: "user",
+            password: "password"
+        });
+        client.connect();
+        function hideInputs() {
+            var table = document.getElementById('table');
+            if (table.value == "Products") {
+                document.getElementById('divProducts').style.display = "block";
+                document.getElementById('divSellers').style.display = "none";
+            }
+            else {
+                document.getElementById('divProducts').style.display = "none";
+                document.getElementById('divSellers').style.display = "block";
+            }
+        }
+        function insert() {
+            var table = document.getElementById('table');
+            if (table.value == "Products") {
+                const query =
+                    `
+        INSERT INTO "Products" ("Product_ID","Product_Name","Product_Price","Product_Rating","Product_Description","Category_ID")
+        VALUES ($1,$2,$3,$4,$5,$6);
+    `;
+                var Product_ID = document.getElementById("Product_ID").value;
+                var Product_Name = document.getElementById("Product_Name").value;
+                var Product_Price = document.getElementById("Product_Price").value;
+                var Product_Rating = document.getElementById("Product_Rating").value;
+                var Product_Description = document.getElementById("Product_Description").value;
+                var Category_ID = document.getElementById("Category_ID").value;
+
+                client.query(query,[Product_ID, Product_Name,Product_Price, Product_Rating,Product_Description,Category_ID], (err, res) => {              
+                if(err) {
+                        console.log(err, res);
+                        return;
+                    }
+                    console.log(res);
+                })
+            }
+            else {
+                const query2 =
+                    `
+        INSERT INTO "Sellers" ("Seller_ID","Product_ID","Seller_Name","Seller_Rating")
+        VALUES ($1,$2,$3,$4);
+    `;
+                var Seller_ID = document.getElementById("Seller_ID").value;
+                var Product_ID2 = document.getElementById("Product_ID2").value;
+                var Seller_Name = document.getElementById("Seller_Name").value;
+                var Seller_Rating = document.getElementById("Seller_Rating").value;
+
+
+                client.query(query2,[Seller_ID,Product_ID2,Seller_Name,Seller_Rating], (err2, res2) => {              
+                if(err2) {
+                        console.log(err2, res2);
+                        return;
+                    }
+                    console.log(res2);
+                })
+            }
+        }
+
+    </script>
+</body>
+
+</html>

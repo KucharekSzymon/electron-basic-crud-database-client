@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select</title>
+
+</head>
+
+<body>
+    <div class="app-wrapper">
+        <select id="table">
+            <option selected value="Sellers">
+                Sellers
+            </option>
+            <option value="Products">
+                Products
+            </option>
+
+        </select>
+        <button onclick="showTable()">Show table</button>
+    </div>
+    <script>
+        var table = document.getElementById('table');
+        const { Client } = require('pg');
+        const client = new Client({
+            host: "192.168.0.73",
+            port: 5432,
+            database: "baza",
+            user: "user",
+            password: "password"
+        });
+        client.connect();
+
+
+
+        function showTable() {
+            client.query('SELECT * FROM "' + table.value + '";', (err, res) => {
+                if (err) {
+                    console.log(err, res);
+                    return;
+                }
+                console.log(res);
+                document.write("    <style>table,tr,td{border:1px solid black; border-collapse: collapse;}tr,td{padding:5px;}</style>");
+                document.writeln("<table>");
+                if (table.value == "Products") {
+                    document.write("<tr><td>Product_ID</td><td>Product_Name</td><td>Product_Price</td><td>Product_Description</td><td>Product_Rating</td><td>Category_ID</td></tr>")
+                    for (var i = 0; i < res.rows.length; i++) {
+                        document.write("<tr>")
+                        document.write("<td>" + res.rows[i].Product_ID + "</td>");
+                        document.write("<td>" + res.rows[i].Product_Name + "</td>");
+                        document.write("<td>" + res.rows[i].Product_Price + "</td>");
+                        document.write("<td>" + res.rows[i].Product_Description + "</td>");
+                        document.write("<td>" + res.rows[i].Product_Rating + "</td>");
+                        document.write("<td>" + res.rows[i].Category_ID + "</td>");
+
+                        document.write("</tr>")
+                    }
+                }
+                else {
+                    document.write("<tr><td>Seller_ID</td><td>Product_ID</td><td>Seller_Name</td><td>Seller_Rating</td></tr>")
+                    for (var i = 0; i < res.rows.length; i++) {
+                        document.write("<tr>")
+                        document.write("<td>" + res.rows[i].Seller_ID + "</td>");
+                        document.write("<td>" + res.rows[i].Product_ID + "</td>");
+                        document.write("<td>" + res.rows[i].Seller_Name + "</td>");
+                        document.write("<td>" + res.rows[i].Seller_Rating + "</td>");
+                        document.write("</tr>")
+                    }
+                }
+
+                document.write("/<table>")
+            })
+
+        }
+        function endConnection() {
+            client.end();
+        }
+
+
+    </script>
+</body>
+
+</html>
