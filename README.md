@@ -1,4 +1,4 @@
-# Simple client for PostgreSQL DB written in electron
+# Simple client for PostgreSQL DB written in Electron
 
 This is a semester project that involved creating a client application specifically designed to interact with a PostgreSQL database. The application enables users to perform all four basic CRUD operations (Create, Read, Update, Delete) on the database.
 
