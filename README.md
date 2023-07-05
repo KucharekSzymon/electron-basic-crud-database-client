@@ -10,9 +10,9 @@ A simple Electron application for performing basic CRUD (Create, Read, Update, D
   
 ## Installation
 
-1. Clone the repository:
-3. Navigate to the project directory:
-4. Install the dependencies:
+1. Clone the repository
+2. Navigate to the project directory
+3. Install the dependencies:
 
 ```bash
 npm install
