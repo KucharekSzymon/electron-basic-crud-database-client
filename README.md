@@ -1,29 +1,47 @@
-# Electron Basic CRUD Database Client
+# Simple client for PostgreSQL DB written in electron
 
-A simple Electron application for performing basic CRUD (Create, Read, Update, Delete) operations on a database. This application provides an intuitive user interface for managing data in a database and serves as a starting point for building more complex database-driven applications.
+This is a semester project that involved creating a client application specifically designed to interact with a PostgreSQL database. The application enables users to perform all four basic CRUD operations (Create, Read, Update, Delete) on the database.
+
+During the project, I had the opportunity to enhance my JavaScript programming skills while working on this practical application. It allowed me to gain valuable hands-on experience in developing database-driven applications using PostgreSQL.
+
+The project served as a valuable learning experience, enabling me to apply and further develop my JavaScript skills in a real-world scenario. It provided me with a solid foundation in working with databases and reinforced my understanding of fundamental CRUD operations.
+
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/KucharekSzymon/simple-postgreSQL-electron-client
+```
+
+Go to the project directory
+
+```bash
+  cd simple-postgreSQL-electron-client
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Run docker-compose to create PostgreSQL DB instance
+
+```bash
+  docker-compose up -d
+```
+
+
+Start the server
+
+```bash
+  npm run start
+```
+
 
 ## Tech Stack
 
-- Electron: Cross-platform framework for building desktop applications using web technologies.
-- JavaScript: Programming language for building interactive web applications.
-- HTML/CSS: Markup language and styling for creating user interfaces.
-  
-## Installation
-
-1. Clone the repository
-2. Navigate to the project directory
-3. Install the dependencies:
-
-```bash
-npm install
-```
-
-## Contributing
-
-Contributions are welcome! If you have any ideas, suggestions, or bug reports, please open an issue or submit a pull request.
-
-## Author
-
-- [Kucharek Szymon](https://github.com/KucharekSzymon)
-
-Feel free to explore and modify this Electron Basic CRUD Database Client to suit your needs. For any questions or concerns, please reach out to the author, [Kucharek Szymon](https://github.com/KucharekSzymon), on GitHub.
+ - [Electron](https://www.electronjs.org/)
+ - [pg](https://www.npmjs.com/package/pg)
